@@ -52,18 +52,48 @@ export const startSavingNotes = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-export const startUploadingFiles = async (req, res) => {
-  try {
-    const files = req.files; // Usa req.files si estás usando algún middleware para el manejo de archivos, como multer
-    const fileUploadPromises = files.map(file => fileUpload(file));
-
-    const imgsUrls = await Promise.all(fileUploadPromises);
-    res.status(200).json({ imgsUrls });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+import multer from "multer";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Carpeta de destino
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Nombre único para el archivo
   }
-};
+});
+
+// export const startUploadingFiles = async (req, res) => {
+//   const file = req.body;
+//   console.log("🚀 ~ startUploadingFiles ~ file:", file)
+//   if (!file) return null;
+
+
+//   const formData = new FormData();
+//   formData.append('upload_preset', 'react-journal');
+//   formData.append('file', file);
+
+//   const fetchOptions = {
+//     method: 'POST',
+//     body: formData
+//   }
+
+//   try {
+//     const cloudUrl = 'https://api.cloudinary.com/v1_1/dqslkmm64/upload';
+
+//     const resp = await fetch(cloudUrl, fetchOptions);
+
+//     if (!resp.ok) throw new Error('No se pudo subir la imagen');
+
+//     const cloudResp = await resp.json();
+
+//     return cloudResp.secure_url;
+
+//   } catch (error) {
+//     /*  console.log(error);
+//      throw new Error(error.message); */
+//     return null;
+//   }
+// }
 
 export const startDeletingNote = async (req, res) => {
   try {

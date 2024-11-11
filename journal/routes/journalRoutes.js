@@ -3,7 +3,7 @@ import express from 'express';
 import { startNewNote, 
     startLoadingNotes, 
     startSavingNotes, 
-    startUploadingFiles, 
+    // startUploadingFiles, 
     startDeletingNote 
 } from '../journalController.js';
 
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/newNote', startNewNote);
 router.post('/loadNotes', startLoadingNotes);
 router.put('/saveNote', startSavingNotes);
-router.post('/uploadFiles', startUploadingFiles);
+// router.post('/uploadFile', startUploadingFiles);
 router.post('/deleteNote', startDeletingNote);
 
 export default router;
