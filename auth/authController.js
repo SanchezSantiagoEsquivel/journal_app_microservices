@@ -3,20 +3,8 @@ import {
   logoutFirebase,
   loginWithEmailPassword,
   registerUserWithEmailPassword,
-  signInWithGoogle
 } from "./firebase/providers.js";
 import { firebaseAuth } from "./firebase/config.js";
-
-export const startGoogleSignIt = async (req, res) => {
-  console.log("estoy en signInWithGoogle");
-
-  try {
-    const result = await signInWithGoogle();
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 export const creatingUserWithEmailPassword = async (req, res) => {
 
@@ -53,7 +41,7 @@ export const logout = async (req, res) => {
 };
 
 export const getAuthenticatedUser = async (req, res) => {
-  
+
   try {
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {

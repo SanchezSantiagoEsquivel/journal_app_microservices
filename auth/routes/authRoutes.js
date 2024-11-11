@@ -1,18 +1,18 @@
 import express from 'express';
 import { 
-    startGoogleSignIt,
-    creatingUserWithEmailPassword,
     authenticateUserWithEmailPassword,
+    creatingUserWithEmailPassword,
+    getGoogleAuthProvider,
+    getAuthenticatedUser,
+    startGoogleSignIt,
     logout,
-    getAuthenticatedUser
 } from '../authController.js';
 
 const router = express.Router();
 
-router.post('/google-signin', startGoogleSignIt);
-router.post('/register', creatingUserWithEmailPassword);
 router.post('/login', authenticateUserWithEmailPassword );
-router.post('/logout', logout);
+router.post('/register', creatingUserWithEmailPassword);
 router.post('/check-auth-state', getAuthenticatedUser);
+router.post('/logout', logout);
 
 export default router;
